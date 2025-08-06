@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Increase Clickable Area</title>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=delete" />
+  <style>
+    /* from https://x.com/pqoqubbw/status/1952673850350588120 */
+    /* demo */
+    .icon-button {
+      position: relative;
+    }
+
+    .with-pseudo {
+      &::after {
+        content: '';
+        position: absolute;
+        inset: -0.5rem;
+      }
+    }
+
+    /* etc */
+
+    body {
+      display: grid;
+      place-content: center;
+      height: 100vh;
+      margin: 0;
+      font-family: system-ui, sans-serif;
+    }
+
+    .wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3rem;
+    }
+
+    .icon-container {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .icon-button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 2rem;
+      height: 2rem;
+      padding: 0.25rem;
+      border-radius: 0.5rem;
+      color: dimgray;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .icon-button:hover {
+      background: lightgray;
+      color: #222;
+    }
+
+    .material-symbols-outlined {
+      font-size: 24px;
+    }
+
+    .debug-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .debug::after {
+      background: #ffe47aa6;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrapper">
+    <div class="debug-toggle">
+      <input type="checkbox" id="debug-checkbox">
+      <label for="debug-checkbox">Show pseudo</label>
+    </div>
+
+    <div class="icon-container">
+      <div class="icon-button">
+        <span class="material-symbols-outlined">delete</span>
+      </div>
+      <div class="icon-button with-pseudo">
+        <span class="material-symbols-outlined">delete</span>
+      </div>
+    </div>
+  </div>
+  <script>
+    const debugCheckbox = document.getElementById('debug-checkbox');
+    const secondIconButton = document.querySelector('.with-pseudo');
+
+    debugCheckbox.addEventListener('change', () => {
+      secondIconButton.classList.toggle('debug', debugCheckbox.checked);
+    });
+
+    window.addEventListener('click', (e) => {
+      if (e.target.classList.contains('icon-button')) console.log(e.target)
+    })
+  </script>
+</body>
+
+</html>
